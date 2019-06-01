@@ -42,12 +42,12 @@ def main():
  
   while True:
     lightLevel = readLight()
-    print "Light Level : " + str(lightLevel) + " lux"
+    print "Light Level : " + str(lightLevel) + ' lux'
     if lightLevel <= 20:
         now = time.gmtime(time.time())
-        filename = now.tm_year + "_" + now.tm_mon + "_" + now.tm_mday + "_" + now.tm_hour + "_" + now.tm_min + "_" + now.tm_sec + ".h264"
+        filename = now.tm_year + '_' + now.tm_mon + '_' + now.tm_mday + '_' + now.tm_hour + '_' + now.tm_min + '_' + now.tm_sec + '.h264'
         camra.start_preview()
-        camra.start_recording("/home/pi/" + filename)
+        camra.start_recording('/home/pi/' + filename)
         sleep(10)
         camera.stop_recording()
         camera.stop_preview()
