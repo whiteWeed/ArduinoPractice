@@ -46,8 +46,8 @@ def main():
     if lightLevel <= 20:
         now = time.gmtime(time.time())
         filename = str(now.tm_year) + '_' + str(now.tm_mon) + '_' + str(now.tm_mday) + '_' + str(now.tm_hour) + '_' + str(now.tm_min) + '_' + str(now.tm_sec) + '.h264'
-        camra.start_preview()
-        camra.start_recording('/home/pi/' + filename)
+        camera.start_preview()
+        camera.start_recording('/home/pi/' + filename)
         sleep(10)
         camera.stop_recording()
         camera.stop_preview()
