@@ -48,7 +48,7 @@ def main():
         filename = str(now.tm_year) + '_' + str(now.tm_mon) + '_' + str(now.tm_mday) + '_' + str(now.tm_hour) + '_' + str(now.tm_min) + '_' + str(now.tm_sec) + '.h264'
         camera.start_preview()
         camera.start_recording('/home/pi/' + filename)
-        sleep(10)
+        time.sleep(10)
         camera.stop_recording()
         camera.stop_preview()
     else:
