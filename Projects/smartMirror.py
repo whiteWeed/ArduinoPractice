@@ -4,13 +4,13 @@ import Adafruit_DHT
 import time
 import threading
 import RPi.GPIO as GPIO
-import picamera
+from picamera2 import Picamera2, Preview
 
 
 GPIO.setmode(GPIO.BCM)  # GPIO setting
 
 sensor = Adafruit_DHT.DHT11 # DHT setting
-cam = picamera.PiCamera()     # camera 선언
+cam = Picamera2()     # camera 선언
 
 MOTpin = 27     # Fan Motor Pin 설정
 PIRpin = 7      # 인체감지 센서 핀 설정
@@ -41,8 +41,10 @@ def temp():  # 온도 정보 받아오는 함수
 
 
 try:    # 무한루프이기 때문에 인터럽트 설정
-    cam.rotation(90)    # 카메라 회전
-    cam.start_preview(fullscreen=True) # 카메라 시작
+    cam_preview = cam.create_preview_configuration(main={"size": (800, 600)})
+    cam.cofigure(cam_preview)
+    cam.start_preview(Preview.QTGL)
+    cam.start()
     time.sleep(5);      # 카메라 준비를 위한 대기
     crtTime = time.time()    # 업타임 계산용 변수 지정
     while True: # 무한루프
@@ -56,7 +58,7 @@ try:    # 무한루프이기 때문에 인터럽트 설정
             if crtTime + 30 > time.time():    # 마지막 인식으로부터 30초 이상 지났다면
                 t = time.localtime()    # 일시 데이터 저장
                 print(t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + " motion detected!")  # 모션 감지되었다는 안내.
-                cam.capture("/home/pi/capture/" + t.tm_year + "-" + t.tm_mon + "-" + t.tm_hour + " " + t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + ".jpg")  # 모션 감지 시 사진 저장
+                cam.capture_file("/home/pi/capture/" + t.tm_year + "-" + t.tm_mon + "-" + t.tm_hour + " " + t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + ".jpg")  # 모션 감지 시 사진 저장
                 crtTime = time.time()    # 마지막 센서 감지시간 저장
 
 except KeyboardInterrupt:   # 키보드 입력시
