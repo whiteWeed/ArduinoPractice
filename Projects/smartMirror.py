@@ -42,7 +42,7 @@ def temp():  # 온도 정보 받아오는 함수
 
 try:    # 무한루프이기 때문에 인터럽트 설정
     cam_preview = cam.create_preview_configuration(main={"size": (800, 600)})
-    cam.cofigure(cam_preview)
+    cam.configure(cam_preview)
     cam.start_preview(Preview.QTGL)
     cam.start()
     time.sleep(5);      # 카메라 준비를 위한 대기
@@ -57,8 +57,8 @@ try:    # 무한루프이기 때문에 인터럽트 설정
         if GPIO.input(PIRpin):  # 인체감지 센서 인식 시
             if crtTime + 30 > time.time():    # 마지막 인식으로부터 30초 이상 지났다면
                 t = time.localtime()    # 일시 데이터 저장
-                print(t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + " motion detected!")  # 모션 감지되었다는 안내.
-                cam.capture_file("/home/pi/capture/" + t.tm_year + "-" + t.tm_mon + "-" + t.tm_hour + " " + t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + ".jpg")  # 모션 감지 시 사진 저장
+                print("{0}:{1}:{2} motion detected!".format(t.tm_hour, t.tm_min, t.time_sec))  # 모션 감지되었다는 안내.
+                cam.capture_file("/home/pi/capture/{0}-{1}-{2}-{3}:{4}:{5}.jpg".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec))  # 모션 감지 시 사진 저장
                 crtTime = time.time()    # 마지막 센서 감지시간 저장
 
 except KeyboardInterrupt:   # 키보드 입력시
