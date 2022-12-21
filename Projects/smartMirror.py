@@ -55,8 +55,8 @@ try:    # 무한루프이기 때문에 인터럽트 설정
         if GPIO.input(PIRpin):  # 인체감지 센서 인식 시
             if crtTime + 30 > time.time():    # 마지막 인식으로부터 30초 이상 지났다면
                 t = time.localtime()    # 일시 데이터 저장
-                print("%d:%d:%d motion detected!".format(t.tm_hour,t.tm_min,t.tm_sec))  # 모션 감지되었다는 안내.
-                cam.capture("/home/pi/capture/%d-%d-%d %d:%d:%d".format(t.tm_year, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec))  # 모션 감지 시 사진 저장
+                print(t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + " motion detected!")  # 모션 감지되었다는 안내.
+                cam.capture("/home/pi/capture/" + t.tm_year + "-" + t.tm_mon + "-" + t.tm_hour + " " + t.tm_hour + ":" + t.tm_min + ":" + t.tm_sec + ".jpg")  # 모션 감지 시 사진 저장
                 crtTime = time.time()    # 마지막 센서 감지시간 저장
 
 except KeyboardInterrupt:   # 키보드 입력시
