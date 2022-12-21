@@ -29,9 +29,9 @@ else:   #온습도 정보 있으면
     print('Failed to get reading. Try again.')  #온습도 다시 확인하라는 안내
 
 
-global def temp():  # 온도 정보 받아오는 함수
+def temp():  # 온도 정보 받아오는 함수
     global DHTpin   # DHTpin 변수를 global 변수로 지정
-    global humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)  # global변수로 지정 및 정보 받아오기
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)  # global변수로 지정 및 정보 받아오기
 
     if humidity is not None and temperature is not None:    # 정보 있으면
         return temperature  # 온도 정보 반환
